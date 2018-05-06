@@ -70,7 +70,7 @@
         android:layout_marginRight="8dp"
         tools:text="also_known_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ingredients_tv"
+        app:layout_constraintStart_toStartOf="@+id/description_tv"
         app:layout_constraintTop_toTopOf="@+id/alsoKnownLabel" />
 
     <TextView
@@ -91,7 +91,7 @@
         android:layout_marginRight="8dp"
         tools:text="ingredients_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/origin_tv"
+        app:layout_constraintStart_toStartOf="@+id/description_tv"
         app:layout_constraintTop_toTopOf="@+id/ingredientsLabel" />
 
 </android.support.constraint.ConstraintLayout>

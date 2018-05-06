@@ -21,9 +21,13 @@ public class DetailActivity extends AppCompatActivity {
 
     // sandwich_description views references
     private TextView mPlaceOfOriginTextView;
+    private TextView mPlaceOfOriginLabelTextView;
     private TextView mDescriptionTextView;
+    private TextView mDescriptionLabelTextView;
     private TextView mAlsoKnownTextView;
+    private TextView mAlsoKnownLabelTextView;
     private TextView mIngredientsTextView;
+    private TextView mIngredientsLabelTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +37,13 @@ public class DetailActivity extends AppCompatActivity {
         // Obtaining all references to sandwich_description views
         ImageView ingredientsIv = findViewById(R.id.image_iv);
         mPlaceOfOriginTextView = findViewById(R.id.origin_tv);
+        mPlaceOfOriginLabelTextView = findViewById(R.id.originLabel);
         mDescriptionTextView = findViewById(R.id.description_tv);
+        mDescriptionLabelTextView = findViewById(R.id.description_tv);
         mAlsoKnownTextView = findViewById(R.id.also_known_tv);
+        mAlsoKnownLabelTextView = findViewById(R.id.alsoKnownLabel);
         mIngredientsTextView = findViewById(R.id.ingredients_tv);
+        mIngredientsLabelTextView = findViewById(R.id.ingredientsLabel);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -72,11 +80,27 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(final Sandwich sandwich) {
-        mPlaceOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
-        mDescriptionTextView.setText(sandwich.getDescription());
+        String placeOfOrigin = sandwich.getPlaceOfOrigin();
+        if (placeOfOrigin.isEmpty()) {
+            mPlaceOfOriginLabelTextView.setVisibility(View.GONE);
+            mPlaceOfOriginTextView.setVisibility(View.GONE);
+        } else {
+            mPlaceOfOriginTextView.setText(placeOfOrigin);
+        }
+
+        String description = sandwich.getDescription();
+        if (description.isEmpty()) {
+            mDescriptionTextView.setVisibility(View.GONE);
+            mDescriptionLabelTextView.setVisibility(View.GONE);
+        } else {
+            mDescriptionTextView.setText(description);
+        }
 
         List<String> alsoKnownList = sandwich.getAlsoKnownAs();
-        if (!alsoKnownList.isEmpty()) {
+        if (alsoKnownList.isEmpty()) {
+            mAlsoKnownLabelTextView.setVisibility(View.GONE);
+            mAlsoKnownTextView.setVisibility(View.GONE);
+        } else {
             mAlsoKnownTextView.setText(alsoKnownList.get(0));
             for(int i = 1; i < alsoKnownList.size(); ++i) {
                 mAlsoKnownTextView.append("\n" + alsoKnownList.get(i));
@@ -84,9 +108,12 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         List<String> ingredientsList = sandwich.getIngredients();
-        if (!ingredientsList.isEmpty()) {
+        if (ingredientsList.isEmpty()) {
+            mIngredientsTextView.setVisibility(View.GONE);
+            mIngredientsLabelTextView.setVisibility(View.GONE);
+        } else {
             mIngredientsTextView.setText(ingredientsList.get(0));
-            for(int i = 1; i < ingredientsList.size(); ++i) {
+            for (int i = 1; i < ingredientsList.size(); ++i) {
                 mIngredientsTextView.append("\n" + ingredientsList.get(i));
             }
         }
